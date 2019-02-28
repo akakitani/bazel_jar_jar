@@ -3,7 +3,7 @@ def _jar_jar_impl(ctx):
   ctx.action(
     inputs=[ctx.file.rules, ctx.file.input_jar],
     outputs=[ctx.outputs.jar],
-    executable=ctx.executable._jarjar_runner,
+    executable=ctx.executable.jarjar_runner,
     progress_message="jarjar %s" % ctx.label,
     arguments=["process", ctx.file.rules.path, ctx.file.input_jar.path, ctx.outputs.jar.path])
 
@@ -20,7 +20,7 @@ jar_jar = rule(
     attrs = {
         "input_jar": attr.label(allow_files=True, single_file=True),
         "rules": attr.label(allow_files=True, single_file=True),
-        "_jarjar_runner": attr.label(executable=True, cfg="host", default=Label("@com_github_johnynek_bazel_jar_jar//:jarjar_runner")),
+        "jarjar_runner": attr.label(executable=True, cfg="host", default=Label("@com_github_johnynek_bazel_jar_jar//:jarjar_runner")),
     },
     outputs = {
       "jar": "%{name}.jar"
